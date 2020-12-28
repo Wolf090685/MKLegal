@@ -46,10 +46,30 @@ $(function () {
             }
         ]
     });
+    // Add active to menu-link
+    $('.menu__link').on('click', function (event) {
+        event.preventDefault();
+        $('.menu__link').removeClass('menu__link--active');
+        $(this).addClass('menu__link--active');
+    });
     // Mobile menu
     $('.menu__btn').on('click', function () {
         $('.menu__btn').toggleClass('menu__btn--active');
         $('.mobile-menu__list').toggleClass('mobile-menu__list--active');
+    });
+    // Close mobile menu after click on link
+    $('.mobile-menu__link').on('click', function () {
+        $('.mobile-menu__link').removeClass('mobile-menu__link--active');
+        $(this).addClass('mobile-menu__link--active');
+        $('.mobile-menu__list').removeClass('mobile-menu__list--active');
+        $('.menu__btn').removeClass('menu__btn--active');
+    });
+    // Close mobile menu after click on body
+    $(document).click(function (e) {        
+        if (!$(e.target).is('use') && !$(e.target).is('.phone-numbers__icon') && !$(e.target).is('.menu__btn') && !$(e.target).is('.menu__btn-line')) {           
+            $('.mobile-menu__list').removeClass('mobile-menu__list--active');
+            $('.menu__btn').removeClass('menu__btn--active');
+        }
     });
     // Footer dropdown for mobile
     $('.footer__top-drop').on('click', function () {
