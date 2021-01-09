@@ -83,10 +83,16 @@ $(function () {
     });
     // Validate form and mask for phone number  
     function validateForms(form){
+
+        $.validator.methods.cyrillic = function (value, element) {
+            return this.optional (element) || /^[А-Яа-яЁё]+$/.test(value);
+        }
+
         $(form).validate({
             rules: {
                 name: {
                     required: true,
+                    cyrillic: true,
                     minlength: 2
                 },
                 phone: "required"
@@ -94,6 +100,7 @@ $(function () {
             messages: {
                 name: {
                     required: "Введите имя",
+                    cyrillic: "В имени допустима только кириллица, без пробелов и знаков препиния",
                     minlength: jQuery.validator.format("Введите минимум {0} символа!")
                 },
                 phone: "Введите номер телефона"
